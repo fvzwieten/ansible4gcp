@@ -1,12 +1,8 @@
 - name: Create an instance
   hosts: localhost
   gather_facts: no
-  vars:
-      gcp_project: my-project
-      gcp_cred_kind: serviceaccount
-      gcp_cred_file: /home/my_account.json
-      zone: "us-central1-a"
-      region: "us-central1"
+  var_files:
+    files/gcp_vars
 
   tasks:
    - name: create a disk
@@ -14,7 +10,7 @@
          name: 'disk-instance'
          size_gb: 50
          source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts'
-         zone: "{{ zone }}"
+         zone: "{{ gcp_zone }}"
          project: "{{ gcp_project }}"
          auth_kind: "{{ gcp_cred_kind }}"
          service_account_file: "{{ gcp_cred_file }}"
@@ -35,7 +31,7 @@
    - name: create a address
      gcp_compute_address:
          name: 'address-instance'
-         region: "{{ region }}"
+         region: "{{ gcp_region }}"
          project: "{{ gcp_project }}"
          auth_kind: "{{ gcp_cred_kind }}"
          service_account_file: "{{ gcp_cred_file }}"
@@ -68,15 +64,3 @@
 
     - name: Wait for SSH to come up
       wait_for: host={{ address.address }} port=22 delay=10 timeout=60
-
-    - name: Add host to groupname
-      add_host: hostname={{ address.address }} groupname=new_instances
-
-
-- name: Manage new instances
-  hosts: new_instances
-  connection: ssh
-  sudo: True
-  roles:
-    - base_configuration
-    - production_server
