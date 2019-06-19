@@ -1,0 +1,6 @@
+---
+# env vars come from credential when using Tower GCP credential or manual set env vars when using ansible-playbook
+# example of using the lookup construct to get environment vars and use them.
+gcp_email: "{{ lookup('env','GCE_EMAIL') }}"
+gcp_project: "{{ lookup('env','GCE_PROJECT') }}"
+gcp_creds: "{{ lookup('env','GCE_CREDENTIALS_FILE_PATH') }}"
