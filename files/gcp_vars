@@ -4,3 +4,8 @@
 gcp_email: "{{ lookup('env','GCE_EMAIL') }}"
 gcp_project: "{{ lookup('env','GCE_PROJECT') }}"
 gcp_creds: "{{ lookup('env','GCE_CREDENTIALS_FILE_PATH') }}"
+
+# other GCP specific settings
+gcp_cred_kind: serviceaccount
+gcp_region: "europe-west4" # Eemshaven, Netherlands
+gcp_zone: "europe-west4-a"
