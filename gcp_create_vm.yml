@@ -9,7 +9,7 @@
      gcp_compute_disk:
          name: 'disk-instance'
          size_gb: 50
-         source_image: 'rhel-8-v20190618'
+         source_image: 'projects/rhel-cloud/global/images/rhel-8-v20190618'
          zone: "{{ gcp_zone }}"
          project: "{{ gcp_project }}"
          auth_kind: "{{ gcp_cred_kind }}"
