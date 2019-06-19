@@ -50,7 +50,7 @@
              source: "{{ disk }}"
          network_interfaces:
               - network "default"
-                access_configs:
+                access_configs
                   - name: 'External NAT'
                     nat_ip: "default"
                     type: 'ONE_TO_ONE_NAT'
