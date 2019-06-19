@@ -3,7 +3,7 @@
 # example of using the lookup construct to get environment vars and use them.
 gcp_email: "{{ lookup('env','GCE_EMAIL') }}"
 gcp_project: "{{ lookup('env','GCE_PROJECT') }}"
-gcp_creds: "{{ lookup('env','GCE_CREDENTIALS_FILE_PATH') }}"
+gcp_cred_file: "{{ lookup('env','GCE_CREDENTIALS_FILE_PATH') }}"
 
 # other GCP specific settings
 gcp_cred_kind: serviceaccount
