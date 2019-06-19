@@ -47,7 +47,9 @@
          disks:
            - auto_delete: true
              boot: true
-             source: "{{ disk }}"
+             initialize_params:
+               source_image: "projects/rhel-cloud/global/images/rhel-8-v20190618"
+             #source: "{{ disk }}"
          network_interfaces:
               #- network: "{{ network }}"
               - access_configs:
