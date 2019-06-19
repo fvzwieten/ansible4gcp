@@ -5,15 +5,15 @@
     files/gcp_vars
 
   tasks:
-  - name: create a public ip
-    gcp_compute_address:
-      name: address-instance
-      region: "{{ gcp_region }}"
-      project: "{{ gcp_project }}"
-      auth_kind: "{{ gcp_cred_kind }}"
-      service_account_file: "{{ gcp_cred_file }}"
-      state: present
-      register: public_ip
+   - name: create a public ip
+     gcp_compute_address:
+       name: address-instance
+       region: "{{ gcp_region }}"
+       project: "{{ gcp_project }}"
+       auth_kind: "{{ gcp_cred_kind }}"
+       service_account_file: "{{ gcp_cred_file }}"
+       state: present
+     register: public_ip
       
    - name: create a VM
      gcp_compute_instance:
