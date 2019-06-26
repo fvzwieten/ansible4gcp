@@ -19,7 +19,7 @@
      gcp_compute_instance:
          state: present
          status: RUNNING
-         name: test-vm
+         name: "{{ vm-name }}"
          machine_type: n1-standard-1
          disks:
            - auto_delete: true
