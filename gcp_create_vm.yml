@@ -1,5 +1,6 @@
 - name: gcp_create_vm
   hosts: localhost
+  connection: local
   gather_facts: no
   vars_files:
     files/gcp_vars
