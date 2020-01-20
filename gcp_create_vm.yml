@@ -40,6 +40,10 @@
          scopes:
            - https://www.googleapis.com/auth/compute
      register: instance
+
+   - name: show instance return data
+     debug:
+       var: instance
        
 #   - name: Wait for SSH to come up
 #     wait_for: host={{ public_ip.address }} port=22 delay=10 timeout=60
