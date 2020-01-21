@@ -41,12 +41,28 @@
            - https://www.googleapis.com/auth/compute
      register: instance
 
-   - name: Wait for WinRM to come up
+   - name: Wait for WinRM to come up (sysprep stage)
      wait_for:
         host: "{{ public_ip.address }}"
         port: 5986
         delay: 60
         timeout: 600
+
+   - name: Wait for WinRM to go down (sysprep done)
+     wait_for:
+        host: "{{ public_ip.address }}"
+        port: 5986
+        delay: 60
+        timeout: 600
+        state: stopped
+
+   - name: Wait for WinRM to come up (run state)
+     wait_for:
+        host: "{{ public_ip.address }}"
+        port: 5986
+        delay: 60
+        timeout: 600
+
 
 #   - name: Wait for instance to be in the RUNNING state
 #     gcp_compute_instance_info:
