@@ -27,7 +27,6 @@
              boot: true
              initialize_params:
                source_image: "projects/windows-cloud/global/images/family/windows-2019"
-#               source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts'
          network_interfaces:
               - access_configs:
                   - name: External NAT
@@ -41,41 +40,16 @@
            - https://www.googleapis.com/auth/compute
      register: instance
 
-   - name: Wait for RDP to come up (sysprep stage)
+   - name: Wait for VM provisioning..
      wait_for:
         host: "{{ public_ip.address }}"
         port: 3389
         delay: 60
         timeout: 600
 
-#   - name: Wait for WinRM to go down (sysprep done)
-#     wait_for:
-#        host: "{{ public_ip.address }}"
-#        port: 5986
-#        timeout: 600
-#        state: stopped
-
-   - name: Wait for WinRM to come up (run state)
+   - name: Wait for VM to be ready..
      wait_for:
         host: "{{ public_ip.address }}"
         port: 5986
         delay: 30
         timeout: 600
-
-
-#   - name: Wait for instance to be in the RUNNING state
-#     gcp_compute_instance_info:
-#       zone: "{{ gcp_zone }}"
-#       filters:
-#       - name = "{{ vm_name }}"
-#       project: "{{ gcp_project }}"
-#       auth_kind: "{{ gcp_cred_kind }}"
-#       service_account_file: "{{ gcp_cred_file }}"
-#     register: gcp_info
-#     until: gcp_info.resources.status == "RUNNING"
-#     retries: 300
-#     delay: 20
-     
-#   - name: show the full result
-#     debug:
-#       var: gcp_info
