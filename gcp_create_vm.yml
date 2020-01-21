@@ -41,19 +41,19 @@
            - https://www.googleapis.com/auth/compute
      register: instance
 
-   - name: Wait for WinRM to come up (sysprep stage)
+   - name: Wait for RDP to come up (sysprep stage)
      wait_for:
         host: "{{ public_ip.address }}"
-        port: 5986
+        port: 3389
         delay: 60
         timeout: 600
 
-   - name: Wait for WinRM to go down (sysprep done)
-     wait_for:
-        host: "{{ public_ip.address }}"
-        port: 5986
-        timeout: 600
-        state: stopped
+#   - name: Wait for WinRM to go down (sysprep done)
+#     wait_for:
+#        host: "{{ public_ip.address }}"
+#        port: 5986
+#        timeout: 600
+#        state: stopped
 
    - name: Wait for WinRM to come up (run state)
      wait_for:
