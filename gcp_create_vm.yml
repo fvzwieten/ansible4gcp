@@ -53,5 +53,11 @@
      wait_for:
         host: "{{ public_ip.address }}"
         port: 5986
-        delay: 30
+        delay: 60
         timeout: 600
+   
+   - name: set definitive ansible password
+     win_user:
+       name: ansible
+       password: "P@ssw0rd"
+       state: present
