@@ -42,6 +42,13 @@
         sysprep-specialize-script-ps1: "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fvzwieten/ansible4windows/master/createuser.ps1'))"
     register: instance
 
+  - name: remove metadata
+    gcp_compute_instance:
+      state: present
+      status: RUNNING
+      name: "{{ vm_name }}"
+      metadata: {}
+
   - name: Wait for VM provisioning..
     wait_for:
       host: "{{ public_ip.address }}"
