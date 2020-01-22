@@ -3,8 +3,8 @@
   connection: local
   gather_facts: no
   vars_files:
-    files/gcp_vars
-    files/winrm_vars
+  - files/gcp_vars
+  - files/winrm_vars
 
   tasks:
    - name: create a public ip
