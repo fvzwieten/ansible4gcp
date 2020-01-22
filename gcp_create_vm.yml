@@ -40,21 +40,21 @@
       - https://www.googleapis.com/auth/compute
       metadata:
         sysprep-specialize-script-ps1: "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fvzwieten/ansible4windows/master/createuser.ps1'))"
-     register: instance
+    register: instance
 
-   - name: Wait for VM provisioning..
-     wait_for:
-       host: "{{ public_ip.address }}"
-       port: 3389
-       delay: 60
-       timeout: 600
+  - name: Wait for VM provisioning..
+    wait_for:
+      host: "{{ public_ip.address }}"
+      port: 3389
+      delay: 60
+      timeout: 600
 
-   - name: Wait for VM to be ready..
-     wait_for:
-       host: "{{ public_ip.address }}"
-       port: 5986
-       delay: 60
-       timeout: 600
+  - name: Wait for VM to be ready..
+    wait_for:
+      host: "{{ public_ip.address }}"
+      port: 5986
+      delay: 60
+      timeout: 600
 
 
 - name: set ansible password in a safe manner
