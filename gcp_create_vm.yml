@@ -67,7 +67,7 @@
   vars_files:
   - files/winrm_vars
   vars:
-  - password: !vault |
+  - pwd: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           34623831303532363336316161376661613030363138346336643661633262623666646664383061
           3662316466343939386266316466393266663635623337360a613538366139396264633132383065
@@ -76,8 +76,12 @@
           6665
 
   tasks:
+  - name: Show password
+    debug:
+      var: pwd
+      
   - name: set definitive ansible password
     win_user:
       name: ansible
-      password: "{{ password }}"
+      password: "{{ pwd }}"
       state: present
