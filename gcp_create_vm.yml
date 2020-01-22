@@ -55,10 +55,14 @@
       port: 5986
       delay: 60
       timeout: 600
+      
+  - name: Save the VM's public IP for the next play
+    set_fact:
+      new_vm_ip: "{{ public_ip.address }}"
 
 
 - name: set ansible password in a safe manner
-  hosts: "{{ public_ip.address }}"
+  hosts: "{{ new_vm_ip }}"
   gather_facts: no
   vars_files:
   - files/winrm_vars
