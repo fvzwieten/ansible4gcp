@@ -56,13 +56,13 @@
       delay: 60
       timeout: 600
       
-  - name: Save the VM's public IP for the next play
-    set_fact:
-      new_vm_ip: "{{ public_ip.address }}"
-
+  - name: add the just created VM to the inventory
+    add_host:
+      name: '{{ public_ip.address }}'
+      groups: new_vm
 
 - name: set ansible password in a safe manner
-  hosts: "{{ hostvars['localhost']['new_vm_ip'] }}"
+  hosts: new_vm
   gather_facts: no
   vars_files:
   - files/winrm_vars
