@@ -62,7 +62,7 @@
 
 
 - name: set ansible password in a safe manner
-  hosts: "{{ new_vm_ip }}"
+  hosts: "{{ hostvars['localhost']['new_vm_ip'] }}"
   gather_facts: no
   vars_files:
   - files/winrm_vars
