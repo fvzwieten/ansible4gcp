@@ -3,7 +3,7 @@
   connection: local
   tasks:
   - name: run the new module
-    gcp_compute_windows_pwd:
+    gcp_compute_win_password:
       instance: "{{ vm_name }}"
       zone: "europe-west4-a"
       project: "ansible-workshop-244208"
