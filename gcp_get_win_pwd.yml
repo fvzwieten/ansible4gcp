@@ -1,0 +1,16 @@
+- name: test gcp_compute_windows_pwd
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: run the new module
+    gcp_compute_windows_pwd:
+      instance: "{{ vm_name }}"
+      zone: "europe-west4-a"
+      project: "ansible-workshop-244208"
+      username: "ansible"
+      email: "fvanzwie@redhat.com"
+    register: testout
+
+  - name: dump test output
+    debug:
+      msg: "{{ testout }}"
