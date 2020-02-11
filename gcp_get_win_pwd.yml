@@ -9,6 +9,7 @@
       project: "ansible-workshop-244208"
       username: "ansible"
       email: "fvanzwie@redhat.com"
+      credential_file: "files/"
     register: testout
 
   - name: dump test output
