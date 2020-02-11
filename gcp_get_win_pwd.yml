@@ -11,7 +11,7 @@
       zone: "{{ gcp_zone }}"
       project: "{{ gcp_project }}"
       email: "{{ gcp_email }}"
-      credential_file: "{{ gcp_cred_file }}"
+      credential_file: "files/ansible-workshop-244208-be238b493af9.json"
       username: "ansible"
     register: testout
 
