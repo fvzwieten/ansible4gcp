@@ -51,6 +51,8 @@
       - https://www.googleapis.com/auth/compute
       metadata:
         sysprep-specialize-script-ps1: "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fvzwieten/ansible4gcp/master/scripts/sysprep.ps1'))"
+      labels:
+        role: "{{ role }}"
     register: instance
 
   - name: Wait for VM provisioning..
@@ -74,7 +76,7 @@
       project: "{{ gcp_project }}"
       email: "{{ gcp_email }}"
       credential_file: "files/ansible-workshop-244208-be238b493af9.json"
-      username: "ansible"
+      username: '{{ hostvars["instance"].admin_username }}'
     register: win_pwd
 
   - name: add instance to inventory
