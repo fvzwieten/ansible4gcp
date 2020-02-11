@@ -1,3 +1,14 @@
+---
+- name: Retrieve admin credentials for Windows
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: add instance host with machine credential in inventory
+    add_host:
+      name: "instance"
+      admin_username: "{{ansible_user}}"
+      admin_password: "{{ansible_password}}"
+
 - name: gcp_create_vm
   hosts: localhost
   connection: local
@@ -64,29 +75,39 @@
       email: "{{ gcp_email }}"
       credential_file: "files/ansible-workshop-244208-be238b493af9.json"
       username: "ansible"
-    register: winpwd
+    register: win_pwd
 
-  - name: add the just created VM to the inventory
+  - name: add instance to inventory
     add_host:
       name: '{{ public_ip.address }}'
-      groups: new_vm
+      groups:
+      - just_created
+      user: "{{ win_pwd.username }}"
+      pwd: "{{ win_pwd.password }}"
+      public_ip: "{{ public_ip.address }}"
 
-- name: set ansible password in a safe manner
-  hosts: new_vm
+- name: add ansible machine credential to instance
+  hosts: just_created
   gather_facts: no
   vars_files:
   - files/winrm_vars
   vars:
-  - pwd: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          63323162323330383933663232333562356432333638643430393139363438643331366466346266
-          3836623561336234393461366335376535663466393365360a623031393130343935313930336464
-          37326332353863306666363131373565363163376637386561376562643661356361363964396130
-          3065336435343966660a366665343663623638636565353265326430363764393238663636316162
-          3034
+    ansible_user: "{{ user }}"
+    ansible_password: "{{ pwd }}"
       
-  - name: set definitive ansible password
+ tasks:
+  - name: make sure the instance is ready
+    wait_for_connection:
+
+  - name: add windows admin account for ansible
     win_user:
-      name: ansible
-      password: "{{ pwd }}"
+      name: '{{ hostvars["instance"].admin_username }}'
+      password: '{{ hostvars["instance"].admin_password }}'
       state: present
+      groups:
+      - Administrators
+
+  # Use a debug statement to report on stuff in the logging
+  - name: Report endpoints
+    debug:
+      msg: "VM name: {{ vm_name }} Role: {{ role }} Public IP: {{ public_ip }}"
