@@ -3,8 +3,3 @@ Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('ht
 
 # Enable CredSSP
 Enable-WSManCredSSP -Role Server -Force
-
-# Add ansible user for automation
-$newpwd = ConvertTo-SecureString -String "r3dh4t1!" -AsPlainText -Force 
-New-LocalUser -Name "ansible" -Password $newpwd -PasswordNeverExpires -Description "Account for Ansible Automation" 
-Add-LocalGroupMember -Group "Administrators" -Member "ansible"
