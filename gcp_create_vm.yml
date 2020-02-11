@@ -95,7 +95,7 @@
     ansible_user: "{{ user }}"
     ansible_password: "{{ pwd }}"
       
- tasks:
+  tasks:
   - name: make sure the instance is ready
     wait_for_connection:
 
