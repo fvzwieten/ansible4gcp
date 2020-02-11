@@ -12,7 +12,7 @@
       project: "ansible-workshop-244208"
       username: "ansible"
       email: "fvanzwie@redhat.com"
-      credential_file: "{{  }}"
+      credential_file: "{{ gcp_cred_file }}"
     register: testout
 
   - name: dump test output
