@@ -51,8 +51,9 @@
       - https://www.googleapis.com/auth/compute
       metadata:
         sysprep-specialize-script-ps1: "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/fvzwieten/ansible4gcp/master/scripts/sysprep.ps1'))"
-      labels:
-        role: "{{ role }}"
+      tags:
+        items:
+        - "{{ role }}"
     register: instance
 
   - name: Wait for VM provisioning..
